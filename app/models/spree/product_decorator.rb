@@ -1,6 +1,11 @@
 Spree::Product.class_eval do
   has_many :relations, :as => :relatable
 
+  def related_products
+    related_ids = relations.collect(&:related_to_id)
+    self.class.where(:id => related_ids) if related_ids.size > 0
+  end
+
   # Returns all the Spree::RelationType's which apply_to this class.
   def self.relation_types
     Spree::RelationType.find_all_by_applies_to(self.to_s, :order => :name)

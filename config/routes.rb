@@ -10,4 +10,12 @@ Spree::Core::Engine.routes.prepend do
 
   end
 
+  namespace :api, :defaults => { :format => 'json' } do
+
+    resources :products do
+      get :related, :on => :member
+    end
+
+	end
+
 end
