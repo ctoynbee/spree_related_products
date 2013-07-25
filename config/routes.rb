@@ -12,8 +12,13 @@ Spree::Core::Engine.routes.prepend do
 
   namespace :api, :defaults => { :format => 'json' } do
 
-    resources :products do
+    resources :products, :only => [] do
       get :related, :on => :member
+    end
+
+    resource :relations, :only => [] do
+      delete :destroy_product_relations
+      post :create
     end
 
 	end
