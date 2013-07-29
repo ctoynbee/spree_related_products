@@ -16,7 +16,13 @@ module Spree
       def destroy_product_relations
         if @product.present?
           @product.relations.destroy_all
-          respond_with(@product, :status => 204)
+        end
+        respond_with(@product, :status => 204)
+      end
+
+      def by_product
+        if @product.present?
+          respond_with(@product.related_products)
         end
       end
 
