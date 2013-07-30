@@ -2,7 +2,7 @@ module Spree
   module Api
     class RelationsController < Spree::Api::BaseController
 
-      respond_to :js, :html
+      respond_to :json
 
       before_filter :load_data, :only => [:create, :destroy]
 
@@ -24,6 +24,8 @@ module Spree
       end
 
       def destroy_product_relations
+        authorize! :delete, Relation
+
         if @product.present?
           @product.relations.destroy_all
         end
@@ -32,12 +34,16 @@ module Spree
 
 
       def by_product
+        authorize! :read, Relation
+
         if @product.present?
           respond_with(@product.related_products)
         end
       end
 
       def show
+        authorize! :read, Relation
+
         @relation = model_class.find_by_id(params[:id])
         respond_with(@relation)
       end
