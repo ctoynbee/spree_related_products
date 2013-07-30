@@ -12,7 +12,8 @@ module Spree
         begin
           @relation = Relation.new(params[:relation])
           @relation.relatable = @product
-          @relation.related_to = Spree::Variant.find(params[:relation][:related_to_id]).product
+          @relation.related_to = Spree::Product.find_by_assetbank_product_id(params[:relation][:related_to_id])
+          @relation.related_to = Spree::Variant.find(@relation.related_to.id).product
           if @relation.save
             respond_with(@relation)
           else
@@ -51,7 +52,7 @@ module Spree
       private
 
       def load_data
-        @product = Spree::Product.find_by_id(params[:product_id])
+        @product = Spree::Product.find_by_assetbank_product_id(params[:product_id])
       end
 
       def model_class
