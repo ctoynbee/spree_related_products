@@ -1,9 +1,7 @@
-
 Spree::Api::ProductsController.class_eval do
 
   def related
     @product = find_product_from_params
-
     @products = @product.related_products
     respond_with(@products)
   end

@@ -19,7 +19,6 @@ Spree::Core::Engine.routes.prepend do
     resources :relations, :only => [:create, :show] do
       collection do
         delete :destroy_product_relations
-        get :by_product
       end
     end
 

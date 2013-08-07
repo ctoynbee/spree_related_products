@@ -33,15 +33,6 @@ module Spree
         respond_with(@product, :status => 204)
       end
 
-
-      def by_product
-        authorize! :read, Relation
-
-        if @product.present?
-          respond_with(@product.related_products)
-        end
-      end
-
       def show
         authorize! :read, Relation
 
